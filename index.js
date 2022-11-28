@@ -10,6 +10,7 @@ const baseConfig = {
   dynamicJson: true,
   setofFunctionsContainNulls: false,
   ignoreRBAC: false,
+  classicIds: true,
   graphiql: true,
   enableQueryBatching: true,
   legacyRelations: "omit",
