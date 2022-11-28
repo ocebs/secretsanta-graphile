@@ -1,5 +1,8 @@
 const http = require("http");
 const { postgraphile } = require("postgraphile");
+const fs = require("fs");
+
+if (!fs.existsSync("public")) fs.mkdirSync("public");
 
 const baseConfig = {
   subscriptions: true,
@@ -14,6 +17,7 @@ const baseConfig = {
   watchPg: true,
   pgDefaultRole: "nologin",
   jwtSecret: process.env.JWT_SECRET,
+  jwtPgTypeIdentifier: `"secretsanta"."jwt_token"`,
   appendPlugins: [
     require("@graphile-contrib/pg-simplify-inflector"),
     require("@graphile/subscriptions-lds").default,
