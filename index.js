@@ -1,8 +1,14 @@
 const http = require("http");
-const { postgraphile } = require("postgraphile");
+const { postgraphile, makePluginHook } = require("postgraphile");
 const fs = require("fs");
 
+const persistedOperationsDirectory = `${__dirname}/.persisted_operations/`;
 if (!fs.existsSync("public")) fs.mkdirSync("public");
+if (!fs.existsSync(persistedOperationsDirectory)) fs.mkdirSync(persistedOperationsDirectory);
+
+const PersistedOperationsPlugin = require("@graphile/persisted-operations");
+
+const pluginHook = makePluginHook([PersistedOperationsPlugin])
 
 const baseConfig = {
   subscriptions: true,
@@ -10,8 +16,9 @@ const baseConfig = {
   dynamicJson: true,
   setofFunctionsContainNulls: false,
   ignoreRBAC: false,
-  classicIds: true,
+  cors: true,
   graphiql: true,
+  pluginHook,
   enableQueryBatching: true,
   legacyRelations: "omit",
   exportGqlSchemaPath: "public/schema.graphql",
@@ -21,8 +28,10 @@ const baseConfig = {
   jwtPgTypeIdentifier: `"secretsanta"."jwt_token"`,
   appendPlugins: [
     require("@graphile-contrib/pg-simplify-inflector"),
-    require("@graphile/subscriptions-lds").default,
+    require("@graphile/subscriptions-lds").default
   ],
+  persistedOperationsDirectory,
+  allowUnpersistedOperation: true,
   ownerConnectionString: process.env.OWNER_DB_URL,
 };
 

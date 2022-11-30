@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "@graphile/persisted-operations": "^0.1.1",
     "@graphile/subscriptions-lds": "^4.12.3",
     "postgraphile": "^4.12.11"
   },
