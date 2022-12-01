@@ -16,7 +16,7 @@ const baseConfig = {
   dynamicJson: true,
   setofFunctionsContainNulls: false,
   ignoreRBAC: false,
-  cors: true,
+  enableCors: true,
   graphiql: true,
   pluginHook,
   enableQueryBatching: true,
